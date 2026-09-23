@@ -1,0 +1,59 @@
+{
+  "product": "GLIP Platform Frontend",
+  "candidate_label": "RC7_GEOMETRY_QUANTITY_FOUNDATION",
+  "version": "1.0.0rc7",
+  "baseline": {
+    "artifact": "GLIP-Frontend-RC6-BIM-SEMANTIC-INGESTION.zip",
+    "sha256": "531c74d350181b9f7633e13cbcc9f70662a56ead3646e7aa84b10ecb9f0a11d6"
+  },
+  "auth": {
+    "mode": "native_session",
+    "oidc": false,
+    "native_login_route": "/login",
+    "browser_token_storage": false,
+    "self_registration": false,
+    "tenant_required": true
+  },
+  "checks": {
+    "source_tests": "50_PASS_LOCAL",
+    "server_syntax": "PASS_LOCAL",
+    "package_lock_present": false,
+    "npm_ci": "NOT_PROVEN_PACKAGE_LOCK_PENDING",
+    "vite_build": "NOT_PROVEN_NO_MATERIALIZED_NODE_MODULES",
+    "production_case_assets": "NOT_PROVEN_LOCAL_OPTIMIZED",
+    "runtime_oidc_jwks_hits": 0,
+    "geometry_quantity_ui": "IMPLEMENTED",
+    "pricing_foundation_ui": "IMPLEMENTED_NO_NUMERIC_AUTHORITY",
+    "npm_run_check": "PASS_LOCAL",
+    "production_vite_build": "NOT_PROVEN_BASELINE_HAS_NO_REPRODUCIBLE_LOCK_INSTALL"
+  },
+  "production_approved": false,
+  "staging_build_qualification_allowed": true,
+  "governance": {
+    "repository_write_executed": false,
+    "commit_executed": false,
+    "merge_executed": false,
+    "deploy_executed": false,
+    "human_approval_required": true
+  },
+  "artifact_bim": {
+    "route": "/app/projects/:projectId/artifacts",
+    "billing_scope": "glip",
+    "document_formats": [
+      "docx",
+      "pdf",
+      "pptx",
+      "xlsx"
+    ],
+    "ifc_first_class": true,
+    "dwg_upload": true,
+    "3d_viewer": "PENDING_GATE_3",
+    "bim_semantic_jobs": "IMPLEMENTED_UI_CONTRACT",
+    "ifcopenshell_runtime": "BACKEND_WORKER_REQUIRED"
+  },
+  "working_copy_base": {
+    "artifact": "GLIP-Frontend-RC6-BIM-SEMANTIC-INGESTION.zip",
+    "sha256": "531c74d350181b9f7633e13cbcc9f70662a56ead3646e7aa84b10ecb9f0a11d6",
+    "baseline_tests": "46_PASS_LOCAL_PREVIOUS_GATE"
+  }
+}
