@@ -3,7 +3,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN if [ -f package-lock.json ]; then       npm ci --no-audit --no-fund;     else       echo "WARNING: package-lock.json missing; staging bootstrap install";       npm install --no-audit --no-fund;     fi
 COPY . .
-COPY .env.example ./.env.example
+COPY env.example ./.env.example
 RUN npm test
 RUN npm run build
 
