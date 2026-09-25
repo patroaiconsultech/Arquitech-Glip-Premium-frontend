@@ -1,4 +1,4 @@
-import {Routes,Route} from "react-router-dom";
+import {Outlet,Route,Routes} from "react-router-dom";
 import Landing from "./routes/Landing";
 import Workspace from "./routes/Workspace";
 import ProjectPage from "./routes/ProjectPage";
@@ -14,18 +14,23 @@ import Protected from "./auth/Protected";
 import Login from "./routes/Login";
 import ArtifactStudio from "./routes/ArtifactStudio";
 
-export default function App(){return <Routes>
-  <Route path="/" element={<Landing/>}/>
-  <Route path="/login" element={<Login/>}/>
-  <Route path="/app" element={<Protected><Workspace/></Protected>}/>
-  <Route path="/app/today" element={<Protected><Today/></Protected>}/>
-  <Route path="/app/clients" element={<Protected><Clients/></Protected>}/>
-  <Route path="/app/providers" element={<Protected><Providers/></Protected>}/>
-  <Route path="/app/status" element={<Protected><IntelligenceStatus/></Protected>}/>
-  <Route path="/app/projects/:projectId" element={<Protected><ProjectPage/></Protected>}/>
-  <Route path="/app/projects/:projectId/operations" element={<Protected><ProjectOperations/></Protected>}/>
-  <Route path="/app/projects/:projectId/ghostwriter" element={<Protected><Ghostwriter/></Protected>}/>
-  <Route path="/app/projects/:projectId/artifacts" element={<Protected><ArtifactStudio/></Protected>}/>
-  <Route path="/app/approvals" element={<Protected><Approvals/></Protected>}/>
-  <Route path="/app/projects/:projectId/memory" element={<Protected><MemoryCenter/></Protected>}/>
-</Routes>}
+export default function App(){
+  return <Routes>
+    <Route path="/" element={<Landing/>}/>
+    <Route path="/login" element={<Login/>}/>
+
+    <Route path="/app" element={<Protected><Outlet/></Protected>}>
+      <Route index element={<Workspace/>}/>
+      <Route path="/app/today" element={<Today/>}/>
+      <Route path="/app/clients" element={<Clients/>}/>
+      <Route path="/app/providers" element={<Providers/>}/>
+      <Route path="/app/status" element={<IntelligenceStatus/>}/>
+      <Route path="/app/projects/:projectId" element={<ProjectPage/>}/>
+      <Route path="/app/projects/:projectId/operations" element={<ProjectOperations/>}/>
+      <Route path="/app/projects/:projectId/ghostwriter" element={<Ghostwriter/>}/>
+      <Route path="/app/projects/:projectId/artifacts" element={<ArtifactStudio/>}/>
+      <Route path="/app/approvals" element={<Approvals/>}/>
+      <Route path="/app/projects/:projectId/memory" element={<MemoryCenter/>}/>
+    </Route>
+  </Routes>
+}

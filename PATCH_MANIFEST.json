@@ -1,0 +1,23 @@
+{
+  "name": "GLIP UX-01 navigation patch",
+  "purpose": "Validate membership once at protected app boundary instead of revalidating on every internal route transition.",
+  "files": [
+    {
+      "path": "src/App.tsx",
+      "sha256": "98fccb64cc3ee1b81578695cb8d0ccc612fda7111f54a08e90aa5d93c4942e87"
+    },
+    {
+      "path": "src/auth/Protected.tsx",
+      "sha256": "7ebe5754c6c5f0e39b115296de8191208f71f7e27bb34b392762cbbe1eed5271"
+    },
+    {
+      "path": "tests/session-boundary-v09.test.mjs",
+      "sha256": "a83b471e0083e9a13a1c6506e121f327119897efa6d0de9afee159a0b85d9f02"
+    }
+  ],
+  "write_executed": false,
+  "commit_executed": false,
+  "merge_executed": false,
+  "deploy_executed": false,
+  "human_approval_required": true
+}
