@@ -1,31 +1,86 @@
-# GLIP Frontend RC4 Native Auth — Railway
+# GLIP Frontend — Railway deployment contract
 
-Recommended service name: `glip-frontend`.
+Serviço: frontend GLIP.
 
-The browser talks only to this service. `server.mjs` proxies `/api/*` to the GLIP backend
-over Railway private networking.
+O browser deve falar apenas com o frontend. `server.mjs` faz proxy de `/api/*`
+para o backend configurado exclusivamente no servidor via `GLIP_BACKEND_URL`.
 
-Required server-side variable:
-`GLIP_BACKEND_URL=http://${{glip-backend.RAILWAY_PRIVATE_DOMAIN}}:${{glip-backend.PORT}}`
+## Variáveis
 
-Health:
-`/health`
+Obrigatória no servidor:
 
-Public domain:
-frontend only for the preferred initial topology.
+```text
+GLIP_BACKEND_URL=<backend GLIP autorizado para o ambiente>
+```
 
-## Auth
-The public login page is `/login`.
-No external identity provider variables are required.
+Variáveis `VITE_*` são públicas por definição e não podem conter segredo.
 
-## Release gate
-This source candidate still has no `package-lock.json` because the current local environment
-cannot reach npm registry reliably.
+O contrato de exemplo canônico é:
 
-Bootstrap/networked staging build may be used to materialize the lock and build evidence.
-Production release approval still requires:
-1. generated and reviewed `package-lock.json`;
-2. committed lock;
-3. clean `npm ci`;
-4. green Vite production build;
-5. local/optimized case assets required by `PERFORMANCE_BUDGET.md`.
+```text
+.env.example
+```
+
+`env.example` permanece apenas como mirror transitório idêntico durante este gate e deve ser
+removido em patch posterior depois que um build Railway provar que `.env.example` está presente
+no build context.
+
+## Health / provenance
+
+`GET /health` deve retornar, sem segredo:
+
+- `status`
+- `service`
+- `version`
+- `backend_proxy_configured`
+- `deployment_id`
+- `commit`
+
+Após cada deploy candidato, registrar:
+
+```text
+Git commit
+Git tree
+GitHub Actions run
+Railway deployment id
+Railway commit
+/health response
+deployment timestamp
+```
+
+GitHub, ZIP, build artifact e Railway não devem ser presumidos equivalentes.
+
+## Release gate P0-002
+
+O source agora exige:
+
+```bash
+npm run verify:release
+npm ci --no-audit --no-fund
+npm test
+node --check server.mjs
+npm run build
+npm run build:evidence
+npm run release:provenance
+```
+
+Docker e GitHub Actions usam `npm ci` sem fallback para `npm install`.
+
+Package lock esperado neste candidato:
+
+```text
+SHA256 f16603eac1121abd24b1c1911c8e4f95f173eed83372351c6fbb410efe210245
+```
+
+## Estado de aprovação
+
+```text
+source_contract_local=PASS
+source_tests_local=50_PASS
+server_syntax_local=PASS
+npm_ci_networked=PENDING_CI
+vite_build_networked=PENDING_CI
+railway_runtime_provenance=PENDING_DEPLOY
+production_approved=false
+human_approval_required=true
+```

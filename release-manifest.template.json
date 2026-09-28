@@ -1,21 +1,25 @@
 {
   "product": "GLIP Platform Frontend",
   "version": "1.0.0rc7",
-  "repository": "TO_BE_CREATED",
-  "commit": "TO_BE_CAPTURED",
+  "repository": "https://github.com/patroaiconsultech/Arquitech-Glip-Premium-frontend",
+  "commit": "TO_BE_CAPTURED_FROM_CI",
+  "tree": "TO_BE_CAPTURED_FROM_CI",
   "environment": "staging",
+  "railway_deployment_id": "TO_BE_CAPTURED_AFTER_DEPLOY",
+  "railway_runtime_commit": "TO_BE_CAPTURED_FROM_HEALTH",
   "backend_target": {
-    "repository": "TO_BE_CREATED",
+    "repository": "https://github.com/patroaiconsultech/Arquitech-Glip-Premium-backend",
     "commit": "TO_BE_PINNED",
-    "network": "Railway private network via GLIP_BACKEND_URL"
+    "network": "GLIP_BACKEND_URL_SERVER_SIDE_ONLY"
   },
-  "package_lock_sha256": "PENDING_NETWORKED_BUILD",
-  "build_evidence_sha256": "PENDING_NETWORKED_BUILD",
+  "package_lock_sha256": "f16603eac1121abd24b1c1911c8e4f95f173eed83372351c6fbb410efe210245",
+  "env_example_sha256": "70bbf334f24206c812e0130454f5a66fade35c5ea60186a24869b3f36ea348ee",
+  "build_evidence_sha256": "TO_BE_CAPTURED_FROM_CI",
+  "release_provenance_sha256": "TO_BE_CAPTURED_FROM_CI",
   "production_approved": false,
   "deploy_executed": false,
   "human_approval_required": true,
-  "case_asset_mode": "LOCAL_OPTIMIZED_REQUIRED_BEFORE_PRODUCTION",
-  "candidate_label": "RC7_GEOMETRY_QUANTITY_FOUNDATION",
+  "candidate_label": "P0_002_REPRODUCIBILITY_PATCH",
   "same_origin_backend_proxy": true,
   "browser_m2m_secret": false,
   "auth": {
@@ -24,25 +28,5 @@
     "self_registration": false,
     "tenant_required": true,
     "oidc": false
-  },
-  "artifact_bim": {
-    "route": "/app/projects/:projectId/artifacts",
-    "billing_scope": "glip",
-    "document_formats": [
-      "docx",
-      "pdf",
-      "pptx",
-      "xlsx"
-    ],
-    "ifc_first_class": true,
-    "viewer_3d": "PENDING_GATE_3",
-    "bim_semantic_jobs": "IMPLEMENTED_UI_CONTRACT",
-    "ifcopenshell_runtime": "BACKEND_WORKER_REQUIRED"
-  },
-  "architecture_foundation": {
-    "dxf_semantic_ui": "IMPLEMENTED",
-    "geometry_preview_ui": "IMPLEMENTED",
-    "quantity_takeoff_ui": "IMPLEMENTED",
-    "pricing_intelligence_ui": "FOUNDATION_ONLY"
   }
 }

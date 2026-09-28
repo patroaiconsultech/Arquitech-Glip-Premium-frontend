@@ -19,6 +19,29 @@ function request(port,path,options={}){
     req.end();
   });
 }
+
+function prepareTestDist(t){
+  const dir="dist";
+  const file="dist/index.html";
+  const hadDir=fs.existsSync(dir);
+  const hadFile=fs.existsSync(file);
+  const previous=hadFile?fs.readFileSync(file):null;
+
+  fs.mkdirSync(dir,{recursive:true});
+  fs.writeFileSync(file,"<html>GLIP</html>");
+
+  t.after(()=>{
+    if(hadFile && previous!==null){
+      fs.writeFileSync(file,previous);
+    }else{
+      fs.rmSync(file,{force:true});
+    }
+    if(!hadDir){
+      fs.rmSync(dir,{recursive:true,force:true});
+    }
+  });
+}
+
 async function waitHealth(port){
   for(let i=0;i<40;i++){
     try{const r=await request(port,"/health");if(r.status===200)return}catch{}
@@ -28,8 +51,7 @@ async function waitHealth(port){
 }
 
 test("runtime proxy preserves request body cookie redirect and set-cookie",async(t)=>{
-  fs.mkdirSync("dist",{recursive:true});
-  fs.writeFileSync("dist/index.html","<html>GLIP</html>");
+  prepareTestDist(t);
 
   const seen={};
   const backend=http.createServer((req,res)=>{
@@ -74,8 +96,7 @@ test("runtime proxy preserves request body cookie redirect and set-cookie",async
 });
 
 test("runtime health exposes no backend url or secrets",async(t)=>{
-  fs.mkdirSync("dist",{recursive:true});
-  fs.writeFileSync("dist/index.html","<html>GLIP</html>");
+  prepareTestDist(t);
 
   const probe=http.createServer(); const frontendPort=await listen(probe); probe.close();
   const child=spawn(process.execPath,["server.mjs"],{

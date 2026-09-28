@@ -1,10 +1,12 @@
 {
   "product": "GLIP Platform Frontend",
-  "candidate_label": "RC7_GEOMETRY_QUANTITY_FOUNDATION",
+  "candidate_label": "P0_002_REPRODUCIBILITY_PATCH",
   "version": "1.0.0rc7",
   "baseline": {
-    "artifact": "GLIP-Frontend-RC6-BIM-SEMANTIC-INGESTION.zip",
-    "sha256": "531c74d350181b9f7633e13cbcc9f70662a56ead3646e7aa84b10ecb9f0a11d6"
+    "artifact": "Arquitech-Glip-Premium-frontend-main (2)(1).zip",
+    "sha256": "c285c44be47443fc9eb0deea78b722b73b98c48a169a912570cd97c95c6c76ca",
+    "commit": "NOT_PROVEN_FROM_ZIP",
+    "tree": "NOT_PROVEN_FROM_ZIP"
   },
   "auth": {
     "mode": "native_session",
@@ -14,18 +16,34 @@
     "self_registration": false,
     "tenant_required": true
   },
+  "release_contract": {
+    "canonical_env_file": ".env.example",
+    "legacy_env_mirror": "env.example",
+    "legacy_env_mirror_status": "TRANSITIONAL_IDENTICAL_COPY_PENDING_REMOVAL_AFTER_RAILWAY_PROOF",
+    "env_sha256": "70bbf334f24206c812e0130454f5a66fade35c5ea60186a24869b3f36ea348ee",
+    "package_lock_present": true,
+    "package_lock_sha256": "f16603eac1121abd24b1c1911c8e4f95f173eed83372351c6fbb410efe210245",
+    "package_lock_origin": {
+      "artifact": "glip-frontend-build-evidence.zip",
+      "github_commit_sha": "059eca2c257ac8e40b8ae49d92d9e81f91fda761",
+      "git_tree_sha": "92f8d6b29b7343bea141c3f3217cfcb3401c29c6",
+      "github_run_id": "36164632260",
+      "compatibility_with_current_package_json": "VERIFIED_EXACT_ROOT_DEPENDENCIES_VERSION_AND_ENGINES"
+    },
+    "docker_install": "NPM_CI_ONLY",
+    "ci_install": "NPM_CI_ONLY",
+    "release_verifier": "scripts/verify-release-contract.mjs",
+    "provenance_generator": "scripts/release-provenance.mjs"
+  },
   "checks": {
-    "source_tests": "50_PASS_LOCAL",
-    "server_syntax": "PASS_LOCAL",
-    "package_lock_present": false,
-    "npm_ci": "NOT_PROVEN_PACKAGE_LOCK_PENDING",
-    "vite_build": "NOT_PROVEN_NO_MATERIALIZED_NODE_MODULES",
+    "source_tests": "50_PASS_LOCAL_AFTER_PATCH",
+    "server_syntax": "PASS_LOCAL_AFTER_PATCH",
+    "release_contract_verifier": "PASS_LOCAL_AFTER_PATCH",
+    "npm_ci": "PENDING_NETWORKED_CI_NODE_20_20_2",
+    "vite_build": "PENDING_NETWORKED_CI_AFTER_PATCH",
     "production_case_assets": "NOT_PROVEN_LOCAL_OPTIMIZED",
-    "runtime_oidc_jwks_hits": 0,
-    "geometry_quantity_ui": "IMPLEMENTED",
-    "pricing_foundation_ui": "IMPLEMENTED_NO_NUMERIC_AUTHORITY",
-    "npm_run_check": "PASS_LOCAL",
-    "production_vite_build": "NOT_PROVEN_BASELINE_HAS_NO_REPRODUCIBLE_LOCK_INSTALL"
+    "runtime_provenance": "PENDING_RAILWAY_REDEPLOY_AND_HEALTH_CAPTURE",
+    "proxy_test_artifact_cleanup": "IMPLEMENTED_P0_002_V3"
   },
   "production_approved": false,
   "staging_build_qualification_allowed": true,
@@ -50,10 +68,5 @@
     "3d_viewer": "PENDING_GATE_3",
     "bim_semantic_jobs": "IMPLEMENTED_UI_CONTRACT",
     "ifcopenshell_runtime": "BACKEND_WORKER_REQUIRED"
-  },
-  "working_copy_base": {
-    "artifact": "GLIP-Frontend-RC6-BIM-SEMANTIC-INGESTION.zip",
-    "sha256": "531c74d350181b9f7633e13cbcc9f70662a56ead3646e7aa84b10ecb9f0a11d6",
-    "baseline_tests": "46_PASS_LOCAL_PREVIOUS_GATE"
   }
 }
