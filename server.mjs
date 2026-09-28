@@ -105,7 +105,7 @@ async function proxy(req, res) {
       method: req.method,
       headers,
       body: ["GET", "HEAD"].includes(req.method || "GET") ? undefined : body,
-      redirect: "manual",
+      redirect:"manual",
     });
   } catch {
     security(res);
@@ -195,7 +195,7 @@ http
   .createServer(async (req, res) => {
     const u = new URL(req.url || "/", "http://localhost");
 
-    if (u.pathname === "/health") {
+    if(u.pathname==="/health"){
       security(res);
       res.writeHead(200, {
         "Content-Type": "application/json",
