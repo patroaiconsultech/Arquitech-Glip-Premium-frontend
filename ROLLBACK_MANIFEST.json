@@ -1,0 +1,18 @@
+{
+  "purpose": "Rollback UX-01 navigation boundary to last known good g2 frontend behavior while preserving Railway Docker/env fixes.",
+  "source_reference": "origin/g2-frontend-release-contract @ 059eca2c257ac8e40b8ae49d92d9e81f91fda761",
+  "files": [
+    {
+      "path": "src/App.tsx",
+      "sha256": "4c6ddb903e05a6a1c75fbccbb020400777c64162dd2e3da6560c8ce595b4910b"
+    },
+    {
+      "path": "src/auth/Protected.tsx",
+      "sha256": "249297566abf7e46c1e81e12b909ecea03247942e894426c878dc5d29b240676"
+    },
+    {
+      "path": "tests/session-boundary-v09.test.mjs",
+      "sha256": "eb07aa04fa8ef56be7fb17b39fbf6f4a46e0b4ee0cafadef8f4df78c1490cff7"
+    }
+  ]
+}
