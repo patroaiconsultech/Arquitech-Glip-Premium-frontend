@@ -22,7 +22,7 @@ test("native login requires explicit tenant email and password",()=>{
 });
 
 test("login errors are intentionally uniform to user",()=>{
-  assert.match(login,/Credenciais inválidas/);
+  assert.match(login,/Não foi possível entrar com esses dados\./);
 });
 
 test("protected flow redirects locally, not to external identity provider",()=>{

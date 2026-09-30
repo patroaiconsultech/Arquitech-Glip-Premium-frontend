@@ -46,8 +46,12 @@ test("project hub exposes standalone operational modules",()=>{
     assert.ok(project.includes(label),label);
   }
 });
-test("v5 landing remains componentized",()=>{
-  assert.match(landing,/ImmersiveHero/);assert.match(landing,/CaseReel/);assert.match(landing,/CognitiveStory/);
+test("UX-01 landing keeps isolated public shell and explicit product sections",()=>{
+  assert.match(landing,/import "\.\.\/ux01\.css"/);
+  for(const section of ["produto","como-funciona","inteligencia","seguranca"]){
+    assert.match(landing,new RegExp(`id="${section}"`));
+  }
+  assert.match(landing,/\/login\?return_to=\/app/);
 });
 test("canvas retains explicit low-power budget",()=>{
   const canvas=fs.readFileSync("src/components/CognitiveCanvas.tsx","utf8");
