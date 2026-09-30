@@ -1,6 +1,7 @@
 import {FormEvent,useEffect,useState} from "react";
-import {useLocation,useNavigate} from "react-router-dom";
+import {Link,useLocation,useNavigate} from "react-router-dom";
 import {api} from "../api";
+import "../ux01.css";
 
 function safeReturnTo(value:string|null){
   return value && value.startsWith("/") && !value.startsWith("//") ? value : "/app";
@@ -24,58 +25,95 @@ export default function Login(){
   async function submit(e:FormEvent){
     e.preventDefault();
     if(!tenant.trim()||!email.trim()||!password){
-      setError("Informe tenant, e-mail e senha.");
+      setError("Preencha espaço de trabalho, e-mail e senha.");
       return;
     }
-    setBusy(true); setError("");
+
+    setBusy(true);
+    setError("");
     try{
       await api.nativeLogin(tenant.trim(),email.trim(),password);
       await api.me();
       nav(returnTo,{replace:true});
     }catch{
       setPassword("");
-      setError("Credenciais inválidas.");
+      setError("Não foi possível entrar com esses dados.");
     }finally{
       setBusy(false);
     }
   }
 
-  return <div className="center"><form className="glass auth-card" onSubmit={submit}>
-    <div className="brand"><span className="brand-mark">G</span>GLIP</div>
-    <span className="section-kicker">ACESSO NATIVO</span>
-    <h2>Entrar no GLIP</h2>
-    <p>Use a conta criada para o seu tenant GLIP.</p>
-    <label>Tenant
-      <input
-        autoComplete="organization"
-        value={tenant}
-        onChange={e=>setTenant(e.target.value)}
-        placeholder="tenant"
-        required
-      />
-    </label>
-    <label>E-mail
-      <input
-        type="email"
-        autoComplete="username"
-        value={email}
-        onChange={e=>setEmail(e.target.value)}
-        placeholder="voce@empresa.com"
-        required
-      />
-    </label>
-    <label>Senha
-      <input
-        type="password"
-        autoComplete="current-password"
-        value={password}
-        onChange={e=>setPassword(e.target.value)}
-        required
-      />
-    </label>
-    {error&&<div className="notice error">{error}</div>}
-    <button className="button primary wide" disabled={busy}>
-      {busy?"Validando…":"Entrar"}
-    </button>
-  </form></div>;
+  return <main className="ux01-auth">
+    <section className="ux01-auth-story" aria-label="GLIP">
+      <Link className="ux01-brand" to="/" aria-label="Voltar para a página inicial">
+        <span className="ux01-brand-mark">G</span><span>GLIP</span>
+      </Link>
+      <div className="ux01-auth-story-copy">
+        <span className="ux01-kicker">PROJECT INTELLIGENCE FOR ARCHITECTURE</span>
+        <h1>Projetos com continuidade.<br/><em>Inteligência com contexto.</em></h1>
+        <p>Entre no seu espaço de trabalho para acessar projetos, operação e GLIP Intelligence com o contexto certo.</p>
+      </div>
+      <div className="ux01-auth-trust" aria-label="Princípios de acesso">
+        <span>Contexto isolado por workspace</span>
+        <span>Sessão protegida</span>
+        <span>Autoridade humana</span>
+      </div>
+    </section>
+
+    <section className="ux01-auth-panel">
+      <form className="ux01-auth-card" onSubmit={submit} aria-busy={busy}>
+        <div className="ux01-auth-mobile-brand">
+          <Link className="ux01-brand" to="/"><span className="ux01-brand-mark">G</span><span>GLIP</span></Link>
+        </div>
+        <span className="ux01-kicker">ACESSO À PLATAFORMA</span>
+        <h2>Bem-vindo de volta.</h2>
+        <p className="ux01-auth-intro">Use as credenciais do seu espaço de trabalho GLIP.</p>
+
+        <label htmlFor="workspace">Espaço de trabalho</label>
+        <input
+          id="workspace"
+          autoComplete="organization"
+          value={tenant}
+          onChange={e=>setTenant(e.target.value)}
+          placeholder="identificador do escritório"
+          disabled={busy}
+          required
+        />
+        <small className="ux01-field-help">Identificador do seu escritório na GLIP.</small>
+
+        <label htmlFor="email">E-mail</label>
+        <input
+          id="email"
+          type="email"
+          autoComplete="username"
+          value={email}
+          onChange={e=>setEmail(e.target.value)}
+          placeholder="voce@empresa.com"
+          disabled={busy}
+          required
+        />
+
+        <label htmlFor="password">Senha</label>
+        <input
+          id="password"
+          type="password"
+          autoComplete="current-password"
+          value={password}
+          onChange={e=>setPassword(e.target.value)}
+          disabled={busy}
+          required
+        />
+
+        <div className="ux01-auth-message" role="status" aria-live="polite">
+          {error&&<div className="notice error">{error}</div>}
+        </div>
+
+        <button type="submit" className="button primary wide" disabled={busy}>
+          {busy?"Entrando…":"Entrar"}
+        </button>
+
+        <div className="ux01-auth-note">Acesso restrito a usuários autorizados do workspace.</div>
+      </form>
+    </section>
+  </main>;
 }
