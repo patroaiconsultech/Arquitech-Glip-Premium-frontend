@@ -9,7 +9,6 @@ export default function Shell({children}:{children:ReactNode}){
   async function logout(){
     try{await api.logout()}finally{nav("/login",{replace:true})}
   }
-
   return <div className="app-shell"><aside className="sidebar">
     <Link className="brand" to="/"><span className="brand-mark">G</span><span>GLIP</span></Link>
     <nav>
@@ -18,7 +17,7 @@ export default function Shell({children}:{children:ReactNode}){
       <Link className={l.pathname==="/app/clients"?"active":""} to="/app/clients">Clientes</Link>
       <Link className={l.pathname==="/app/providers"?"active":""} to="/app/providers">Prestadores</Link>
       <Link className={l.pathname.includes("approvals")?"active":""} to="/app/approvals">Aprovações</Link>
-      <Link className={l.pathname.includes("/status")?"active":""} to="/app/status">Inteligência</Link>
+      <Link className={l.pathname.includes("/intelligence")?"active":""} to="/app/intelligence">Inteligência</Link>
     </nav>
     <div className="sidebar-foot">
       <span><span className="status-dot"/>GLIP domain plane</span>

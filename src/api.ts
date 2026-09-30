@@ -12,7 +12,6 @@ function headers(){
   }
   return h;
 }
-
 async function req<T>(path:string,init:RequestInit={}):Promise<T>{
   const r=await fetch(`${API}${path}`,{
     ...init,
@@ -27,7 +26,6 @@ async function req<T>(path:string,init:RequestInit={}):Promise<T>{
   return r.json();
 }
 const post=(path:string,body:any)=>req<any>(path,{method:"POST",body:JSON.stringify(body)});
-
 async function upload<T>(path:string,form:FormData):Promise<T>{
   const h=headers();
   delete h["Content-Type"];
@@ -41,7 +39,6 @@ async function upload<T>(path:string,form:FormData):Promise<T>{
   }
   return r.json();
 }
-
 async function download(path:string):Promise<{blob:Blob;filename:string}>{
   const h=headers();
   delete h["Content-Type"];
@@ -55,7 +52,6 @@ async function download(path:string):Promise<{blob:Blob;filename:string}>{
   const match=cd.match(/filename="?([^"]+)"?/i);
   return {blob:await r.blob(),filename:match?.[1]||"artifact"};
 }
-
 export const api={
   authMode:()=>req<any>("/api/v1/auth/mode"),
   nativeLogin:(tenant_id:string,email:string,password:string)=>post("/api/v1/auth/login",{tenant_id,email,password}),
@@ -64,6 +60,11 @@ export const api={
   today:()=>req<any>("/api/v1/dashboard/today"),
   systemStatus:()=>req<any>("/api/v1/system/status"),
   orkioStatus:()=>req<any>("/api/v1/integrations/orkio/status"),
+  chatStatus:()=>req<any>("/api/v1/chat/status"),
+  chatThreads:()=>req<any[]>("/api/v1/chat/threads"),
+  createChatThread:(body:any)=>post("/api/v1/chat/threads",body),
+  chatMessages:(threadId:string)=>req<any[]>(`/api/v1/chat/threads/${threadId}/messages`),
+  sendChatMessage:(threadId:string,content:string)=>post(`/api/v1/chat/threads/${threadId}/messages`,{content}),
   clients:()=>req<any[]>("/api/v1/clients"),
   createClient:(body:any)=>post("/api/v1/clients",body),
   providers:()=>req<any[]>("/api/v1/providers"),

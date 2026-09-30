@@ -6,6 +6,7 @@ import Ghostwriter from "./routes/Ghostwriter";
 import Approvals from "./routes/Approvals";
 import MemoryCenter from "./routes/MemoryCenter";
 import IntelligenceStatus from "./routes/IntelligenceStatus";
+import IntelligenceChat from "./routes/IntelligenceChat";
 import ProjectOperations from "./routes/ProjectOperations";
 import Today from "./routes/Today";
 import Clients from "./routes/Clients";
@@ -20,6 +21,7 @@ export default function App(){return <Routes>
   <Route path="/app/today" element={<Protected><Today/></Protected>}/>
   <Route path="/app/clients" element={<Protected><Clients/></Protected>}/>
   <Route path="/app/providers" element={<Protected><Providers/></Protected>}/>
+  <Route path="/app/intelligence" element={<Protected><IntelligenceChat/></Protected>}/>
   <Route path="/app/status" element={<Protected><IntelligenceStatus/></Protected>}/>
   <Route path="/app/projects/:projectId" element={<Protected><ProjectPage/></Protected>}/>
   <Route path="/app/projects/:projectId/operations" element={<Protected><ProjectOperations/></Protected>}/>
