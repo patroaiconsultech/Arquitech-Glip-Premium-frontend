@@ -1,10 +1,13 @@
-import {ReactNode} from "react";
+import {ReactNode,useEffect,useState} from "react";
 import {Link,useLocation,useNavigate} from "react-router-dom";
 import {api} from "../api";
 
 export default function Shell({children}:{children:ReactNode}){
   const l=useLocation();
   const nav=useNavigate();
+  const [owner,setOwner]=useState(false);
+  useEffect(()=>{let active=true;void api.me().then(m=>{if(active)setOwner(m.role==="owner");}).catch(()=>{});
+  return ()=>{active=false;};},[]);
 
   async function logout(){
     try{await api.logout()}finally{nav("/login",{replace:true})}
@@ -18,6 +21,7 @@ export default function Shell({children}:{children:ReactNode}){
       <Link className={l.pathname==="/app/providers"?"active":""} to="/app/providers">Prestadores</Link>
       <Link className={l.pathname.includes("approvals")?"active":""} to="/app/approvals">Aprovações</Link>
       <Link className={l.pathname.includes("/intelligence")?"active":""} to="/app/intelligence">Inteligência</Link>
+      {owner&&<Link className={l.pathname==="/app/admin"?"active":""} to="/app/admin">Administração</Link>}
     </nav>
     <div className="sidebar-foot">
       <span><span className="status-dot"/>GLIP domain plane</span>

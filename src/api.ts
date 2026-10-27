@@ -54,6 +54,11 @@ async function download(path:string):Promise<{blob:Blob;filename:string}>{
 }
 export const api={
   authMode:()=>req<any>("/api/v1/auth/mode"),
+  adminUsers:()=>req<AdminUser[]>("/api/v1/admin/users"),
+  adminInvitations:()=>req<AdminInvitation[]>("/api/v1/admin/invitations"),
+  adminInvite:(email:string,display_name:string)=>post("/api/v1/admin/invitations",{email,display_name}) as Promise<CreatedInvitation>,
+  adminRevokeInvite:(id:string)=>post(`/api/v1/admin/invitations/${encodeURIComponent(id)}/revoke`,{}) as Promise<AdminInvitation>,
+  acceptInvitation:(token:string,password:string)=>post("/api/v1/invitations/accept",{token,password}) as Promise<{status:string;tenant_id:string}>,
   nativeLogin:(tenant_id:string,email:string,password:string)=>post("/api/v1/auth/login",{tenant_id,email,password}),
   logout:()=>post("/api/v1/auth/logout",{}),
   me:()=>req<any>("/api/v1/me"),
@@ -119,3 +124,14 @@ export const api={
   queueGeometryBuild:(p:string,sceneId:string)=>post(`/api/v1/projects/${p}/architecture/scenes/${sceneId}/geometry-builds`,{build_kind:"preview_glb"}),
   downloadArchitectureModel:(p:string,a:string)=>download(`/api/v1/projects/${p}/architecture/models/${a}/download`)
 };
+
+
+export type AdminUser = {
+  id:string;display_name:string|null;email:string|null;
+  role:string;active:boolean;
+};
+export type AdminInvitation = {
+  id:string;email:string;display_name:string|null;role:string;
+  status:string;expires_at:string;created_at:string;
+};
+export type CreatedInvitation = AdminInvitation & { activation_token:string };

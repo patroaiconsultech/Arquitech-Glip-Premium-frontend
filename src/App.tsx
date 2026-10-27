@@ -14,9 +14,13 @@ import Providers from "./routes/Providers";
 import Protected from "./auth/Protected";
 import Login from "./routes/Login";
 import ArtifactStudio from "./routes/ArtifactStudio";
+import AdminPanel from "./routes/AdminPanel";
+import InviteAccept from "./routes/InviteAccept";
 export default function App(){return <Routes>
   <Route path="/" element={<Landing/>}/>
   <Route path="/login" element={<Login/>}/>
+  <Route path="/invite/accept" element={<InviteAccept/>}/>
+  <Route path="/app/admin" element={<Protected><AdminPanel/></Protected>}/>
   <Route path="/app" element={<Protected><Workspace/></Protected>}/>
   <Route path="/app/today" element={<Protected><Today/></Protected>}/>
   <Route path="/app/clients" element={<Protected><Clients/></Protected>}/>

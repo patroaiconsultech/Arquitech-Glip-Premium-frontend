@@ -12,7 +12,7 @@ export default function Login(){
   const location=useLocation();
   const q=new URLSearchParams(location.search);
   const returnTo=safeReturnTo(q.get("return_to"));
-  const [tenant,setTenant]=useState(import.meta.env.VITE_GLIP_DEFAULT_TENANT_ID||"");
+  const [tenant,setTenant]=useState(q.get("tenant")||import.meta.env.VITE_GLIP_DEFAULT_TENANT_ID||"");
   const [email,setEmail]=useState("");
   const [password,setPassword]=useState("");
   const [busy,setBusy]=useState(false);
@@ -69,17 +69,13 @@ export default function Login(){
         <h2>Bem-vindo de volta.</h2>
         <p className="ux01-auth-intro">Use as credenciais do seu espaço de trabalho GLIP.</p>
 
-        <label htmlFor="workspace">Espaço de trabalho</label>
-        <input
-          id="workspace"
-          autoComplete="organization"
-          value={tenant}
-          onChange={e=>setTenant(e.target.value)}
-          placeholder="identificador do escritório"
-          disabled={busy}
-          required
-        />
-        <small className="ux01-field-help">Identificador do seu escritório na GLIP.</small>
+        {!(q.get("tenant")||import.meta.env.VITE_GLIP_DEFAULT_TENANT_ID)&&<>
+          <label htmlFor="workspace">Espaço de trabalho</label>
+          <input id="workspace" autoComplete="organization" value={tenant}
+            onChange={e=>setTenant(e.target.value)} placeholder="identificador do escritório"
+            disabled={busy} required/>
+          <small className="ux01-field-help">Identificador do seu escritório na GLIP.</small>
+        </>}
 
         <label htmlFor="email">E-mail</label>
         <input
