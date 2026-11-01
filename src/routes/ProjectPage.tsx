@@ -46,6 +46,9 @@ export default function ProjectPage(){
         <Link className="glass module-card" to={`/app/projects/${projectId}/artifacts`}>
           <small>ARTIFACT + BIM</small><strong>Artefatos & CAD/BIM</strong><span>Abrir →</span>
         </Link>
+        <Link className="glass module-card" to={`/app/projects/${projectId}/visual-ai`}>
+          <small>VISUAL AI</small><strong>Estúdio Visual IA</strong><span>Abrir →</span>
+        </Link>
         <Link className="glass module-card" to="/app/approvals">
           <small>GOVERNANCE</small><strong>Aprovações</strong><span>Abrir →</span>
         </Link>

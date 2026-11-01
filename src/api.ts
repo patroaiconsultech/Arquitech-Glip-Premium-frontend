@@ -109,6 +109,16 @@ export const api={
   renderArtifact:(p:string,body:any)=>post(`/api/v1/projects/${p}/artifacts/render`,body),
   artifactUsage:(p:string)=>req<any>(`/api/v1/projects/${p}/artifact-usage`),
   downloadArtifact:(p:string,a:string)=>download(`/api/v1/projects/${p}/artifacts/${a}/download`),
+  visualCapabilities:(p:string)=>req<VisualAICapabilities>(`/api/v1/projects/${encodeURIComponent(p)}/visual-ai/capabilities`),
+  visualImages:(p:string)=>req<VisualImage[]>(`/api/v1/projects/${encodeURIComponent(p)}/visual-ai/images`),
+  visualJobs:(p:string)=>req<VisualJob[]>(`/api/v1/projects/${encodeURIComponent(p)}/visual-ai/jobs`),
+  visualUpload:(p:string,file:File,classification="project_internal")=>{
+    const form=new FormData();form.append("file",file);form.append("classification",classification);
+    return upload<VisualImage>(`/api/v1/projects/${encodeURIComponent(p)}/visual-ai/images`,form);
+  },
+  visualImageContent:(p:string,id:string)=>download(`/api/v1/projects/${encodeURIComponent(p)}/visual-ai/images/${encodeURIComponent(id)}/content`),
+  visualRequestEdit:(p:string,id:string,prompt:string)=>post(`/api/v1/projects/${encodeURIComponent(p)}/visual-ai/images/${encodeURIComponent(id)}/edits`,{prompt,consent_external_processing:true}) as Promise<{id:string;status:string;message:string}>,
+  visualDecision:(p:string,id:string,decision:"approved"|"rejected")=>post(`/api/v1/projects/${encodeURIComponent(p)}/visual-ai/images/${encodeURIComponent(id)}/decision`,{decision}) as Promise<VisualImage>,
   architectureCapabilities:(p:string)=>req<any>(`/api/v1/projects/${p}/architecture/capabilities`),
   architectureSources:(p:string)=>req<any[]>(`/api/v1/projects/${p}/architecture/sources`),
   uploadArchitectureSource:(p:string,file:File,classification="project_internal")=>{
@@ -135,3 +145,17 @@ export type AdminInvitation = {
   status:string;expires_at:string;created_at:string;
 };
 export type CreatedInvitation = AdminInvitation & { activation_token:string };
+
+export type VisualImage={
+  id:string;filename:string;sha256:string;size_bytes:number;format:string;
+  kind:"original"|"derived";source_asset_id:string|null;
+  approval_status:string|null;created_at:string;prompt:string|null;
+};
+export type VisualJob={
+  id:string;status:string;source_asset_id:string;error_code:string|null;
+  created_at:string;completed_at:string|null;
+};
+export type VisualAICapabilities={
+  enabled:boolean;editing_available:boolean;formats:string[];
+  max_upload_bytes:number;max_daily_edits:number;disclaimer:string;
+};

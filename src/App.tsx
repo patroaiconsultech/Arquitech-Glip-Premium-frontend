@@ -16,6 +16,7 @@ import Login from "./routes/Login";
 import ArtifactStudio from "./routes/ArtifactStudio";
 import AdminPanel from "./routes/AdminPanel";
 import InviteAccept from "./routes/InviteAccept";
+import VisualAIStudio from "./routes/VisualAIStudio";
 export default function App(){return <Routes>
   <Route path="/" element={<Landing/>}/>
   <Route path="/login" element={<Login/>}/>
@@ -31,6 +32,7 @@ export default function App(){return <Routes>
   <Route path="/app/projects/:projectId/operations" element={<Protected><ProjectOperations/></Protected>}/>
   <Route path="/app/projects/:projectId/ghostwriter" element={<Protected><Ghostwriter/></Protected>}/>
   <Route path="/app/projects/:projectId/artifacts" element={<Protected><ArtifactStudio/></Protected>}/>
+  <Route path="/app/projects/:projectId/visual-ai" element={<Protected><VisualAIStudio/></Protected>}/>
   <Route path="/app/approvals" element={<Protected><Approvals/></Protected>}/>
   <Route path="/app/projects/:projectId/memory" element={<Protected><MemoryCenter/></Protected>}/>
 </Routes>}
