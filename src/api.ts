@@ -69,7 +69,22 @@ export const api={
   chatThreads:()=>req<any[]>("/api/v1/chat/threads"),
   createChatThread:(body:any)=>post("/api/v1/chat/threads",body),
   chatMessages:(threadId:string)=>req<any[]>(`/api/v1/chat/threads/${threadId}/messages`),
-  sendChatMessage:(threadId:string,content:string)=>post(`/api/v1/chat/threads/${threadId}/messages`,{content}),
+  sendChatMessage:(threadId:string,content:string,attachment_ids:string[]=[],allow_external_ai=false)=>
+    post(`/api/v1/chat/threads/${threadId}/messages`,{content,attachment_ids,allow_external_ai}),
+  chatAttachments:(threadId:string)=>req<ChatAttachment[]>(`/api/v1/chat/threads/${threadId}/attachments`),
+  uploadChatAttachment:(threadId:string,file:File)=>{
+    const form=new FormData();form.append("file",file);
+    return upload<ChatAttachment>(`/api/v1/chat/threads/${threadId}/attachments`,form);
+  },
+  downloadChatAttachment:(threadId:string,attachmentId:string)=>
+    download(`/api/v1/chat/threads/${threadId}/attachments/${attachmentId}/download`),
+  deleteChatAttachment:async(threadId:string,attachmentId:string)=>{
+    const h=headers();delete h["Content-Type"];
+    const r=await fetch(`${API}/api/v1/chat/threads/${threadId}/attachments/${attachmentId}`,{
+      method:"DELETE",credentials:"include",headers:h
+    });
+    if(!r.ok)throw new Error(`HTTP_${r.status}`);
+  },
   clients:()=>req<any[]>("/api/v1/clients"),
   createClient:(body:any)=>post("/api/v1/clients",body),
   providers:()=>req<any[]>("/api/v1/providers"),
@@ -145,6 +160,17 @@ export type AdminInvitation = {
   status:string;expires_at:string;created_at:string;
 };
 export type CreatedInvitation = AdminInvitation & { activation_token:string };
+
+
+export type ChatAttachment = {
+  id:string;
+  filename:string;
+  mime_type:string;
+  size_bytes:number;
+  extraction_status:string;
+  linked_message_id:string|null;
+  created_at:string|null;
+};
 
 export type VisualImage={
   id:string;filename:string;sha256:string;size_bytes:number;format:string;
