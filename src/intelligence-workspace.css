@@ -1,15 +1,35 @@
-/* ArchiTech P0.3 — foco no chat; não altera o Shell das demais rotas. */
-.app-shell--intelligence{
-  display:grid;grid-template-columns:minmax(0,1fr);
+/* ArchiTech P0.4 — regressão P0.3: garantir layout de coluna única.
+   O seletor duplo vence .app-shell global independentemente da ordem
+   de carregamento dos estilos no bundle do Vite. */
+.app-shell.app-shell--intelligence{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
   grid-template-rows:60px minmax(0,1fr);
-  width:100%;height:100vh;height:100dvh;min-height:0;overflow:hidden;
+  width:100%;
+  height:100vh;
+  height:100dvh;
+  min-height:0;
+  overflow:hidden;
 }
-.app-shell--intelligence .workspace{
-  min-width:0;min-height:0;height:100%;overflow:hidden;padding:0;
+/* Fixar ambos os elementos nas linhas corretas impede auto-placement
+   ao lado do cabeçalho, mesmo se o CSS global for carregado depois. */
+.app-shell.app-shell--intelligence > .shell-focus-header{
+  grid-column:1;
+  grid-row:1;
+  min-width:0;
+}
+.app-shell.app-shell--intelligence > main.workspace{
+  grid-column:1;
+  grid-row:2;
+  min-width:0;
+  min-height:0;
+  height:100%;
+  overflow:hidden;
+  padding:0;
   background:#090b0e;
 }
 .shell-focus-header{
-  grid-row:1;display:flex;gap:16px;align-items:center;
+  display:flex;gap:16px;align-items:center;
   padding:0 22px;border-bottom:1px solid var(--line);
   background:#0c0d10;min-width:0;
 }
