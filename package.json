@@ -7,7 +7,7 @@
     "dev": "vite --host 0.0.0.0 --port 5174",
     "verify:release": "node scripts/verify-release-contract.mjs",
     "build": "vite build",
-    "test": "node --test tests/*.test.mjs",
+    "test": "node scripts/run-tests.mjs",
     "check": "npm run test && node --check server.mjs",
     "start": "node server.mjs",
     "build:evidence": "node scripts/build-evidence.mjs",
@@ -15,11 +15,11 @@
   },
   "dependencies": {
     "@vitejs/plugin-react": "4.3.4",
-    "vite": "5.4.14",
-    "typescript": "5.7.3",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "react-router-dom": "6.28.2"
+    "react-router-dom": "6.30.6",
+    "typescript": "5.7.3",
+    "vite": "5.4.14"
   },
   "devDependencies": {
     "@types/react": "18.3.18",

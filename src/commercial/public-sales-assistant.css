@@ -1,0 +1,33 @@
+.csa-backdrop{position:fixed;inset:0;z-index:1100;display:flex;align-items:flex-end;justify-content:flex-end;padding:18px;background:#001115cf;backdrop-filter:blur(3px)}
+.csa-panel{display:flex;flex-direction:column;width:min(470px,100%);height:min(780px,calc(100dvh - 36px));border:1px solid #7ec8b65b;border-radius:22px;background:#091d24;color:#eaf9f5;overflow:hidden;box-shadow:0 20px 80px #0009;font:14px/1.5 Inter,ui-sans-serif,system-ui,sans-serif}
+.csa-panel *{box-sizing:border-box}
+.csa-panel button,.csa-panel input{font:inherit}
+.csa-panel :is(button,input):focus-visible{outline:3px solid #b1f8db;outline-offset:2px}
+.csa-header{display:flex;justify-content:space-between;align-items:start;gap:12px;padding:21px 21px 12px}
+.csa-header h2{font-size:21px;font-weight:650;line-height:1.2;margin:8px 0 5px}
+.csa-header h2:focus{outline:none}
+.csa-header p{font-size:12px;margin:0;color:#b3caca}
+.csa-eyebrow{font-size:10px;color:#b1f8db;letter-spacing:.13em;font-weight:800}
+.csa-icon-button{flex-shrink:0;width:37px;height:37px;border:1px solid #ffffff55;border-radius:50%;background:transparent;color:white;cursor:pointer;font-size:24px!important;line-height:1}
+.csa-switch{display:flex;gap:8px;padding:0 20px 15px;border-bottom:1px solid #ffffff25}
+.csa-switch button{width:50%;padding:10px 4px;border:1px solid #ffffff33;border-radius:10px;background:transparent;color:#bdd5d3;font-size:12px;cursor:pointer}
+.csa-switch button.active{background:#19504b;border-color:#79c5b4;color:white}
+.csa-messages{flex:1;min-height:70px;padding:14px 20px;overflow-y:auto;display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.csa-bubble{max-width:94%;border-radius:14px 14px 14px 3px;background:#1e3942;padding:11px 14px;margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.csa-visitor{align-self:flex-end;background:#205c54;border-radius:14px 14px 3px 14px}
+.csa-actions,.csa-form{padding:14px 20px;border-top:1px solid #ffffff26}
+.csa-actions h3{font-size:13px;margin:0 0 10px;font-weight:650}
+.csa-choices{display:flex;flex-wrap:wrap;gap:7px}
+.csa-choices button,.csa-light{background:#183d41;color:#e8fff5;border:1px solid #8ae5cc60;border-radius:25px;padding:8px 12px;cursor:pointer;font-size:12px}
+.csa-summary{font-size:12px;color:#cce5db;margin:0 0 10px}
+.csa-form label{display:block;margin-bottom:9px;font-weight:650;font-size:12px}
+.csa-field{display:flex;gap:8px}
+.csa-field input{min-width:0;flex:1;border:1px solid #9bc7c580;border-radius:10px;padding:10px;background:#062027;color:#fff}
+.csa-field button,.csa-cta{background:#b1f8db;color:#012824;border:none;border-radius:10px;padding:10px 13px;font-weight:750;cursor:pointer}
+.csa-field button:disabled{opacity:.4;cursor:not-allowed}
+.csa-error{font-size:12px;color:#ffc7c7;margin:8px 0 0}
+.csa-footer{border-top:1px solid #ffffff22;padding:12px 20px 17px;display:grid;gap:8px}
+.csa-footer p{color:#a9c2c4;font-size:11px;margin:0}
+.csa-cta{width:100%}
+@media(max-width:640px){.csa-backdrop{padding:0}.csa-panel{border-radius:18px 18px 0 0;height:min(90dvh,850px);width:100%}.csa-header{padding:16px 18px 10px}.csa-messages{padding:12px 16px}.csa-actions,.csa-form{padding:10px 16px}.csa-footer{padding:11px 16px}}
+@media(prefers-reduced-motion:reduce){.csa-panel *, .csa-panel{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
