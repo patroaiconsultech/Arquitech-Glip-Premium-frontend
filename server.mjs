@@ -18,6 +18,7 @@ const types = {
   ".jpg": "image/jpeg",
   ".jpeg": "image/jpeg",
   ".webp": "image/webp",
+  ".mp4": "video/mp4",
 };
 
 function security(res) {
@@ -185,7 +186,9 @@ function serve(req, res) {
     "Cache-Control",
     filePath.endsWith("index.html")
       ? "no-store"
-      : "public,max-age=31536000,immutable"
+      : u.pathname.startsWith("/construtech/media/")
+        ? "public,max-age=3600,must-revalidate"
+        : "public,max-age=31536000,immutable"
   );
 
   fs.createReadStream(filePath).pipe(res);

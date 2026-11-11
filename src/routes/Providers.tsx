@@ -5,7 +5,7 @@ import {api} from "../api";
 export default function Providers(){
   const [items,setItems]=useState<any[]>([]),[name,setName]=useState(""),[specialty,setSpecialty]=useState(""),[email,setEmail]=useState(""),[error,setError]=useState("");
   const load=()=>api.providers().then(setItems).catch(e=>setError(e.message));
-  useEffect(load,[]);
+  useEffect(() => { void load(); },[]);
   async function create(e:React.FormEvent){
     e.preventDefault(); if(!name.trim())return;
     try{await api.createProvider({name,specialty:specialty||null,email:email||null});setName("");setSpecialty("");setEmail("");load()}

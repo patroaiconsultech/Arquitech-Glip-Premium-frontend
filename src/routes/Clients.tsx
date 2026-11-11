@@ -5,7 +5,7 @@ import {api} from "../api";
 export default function Clients(){
   const [items,setItems]=useState<any[]>([]),[name,setName]=useState(""),[email,setEmail]=useState(""),[phone,setPhone]=useState(""),[error,setError]=useState("");
   const load=()=>api.clients().then(setItems).catch(e=>setError(e.message));
-  useEffect(load,[]);
+  useEffect(() => { void load(); },[]);
   async function create(e:React.FormEvent){
     e.preventDefault(); if(!name.trim())return;
     try{await api.createClient({name,email:email||null,phone:phone||null});setName("");setEmail("");setPhone("");load()}

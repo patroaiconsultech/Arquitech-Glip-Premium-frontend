@@ -46,12 +46,14 @@ test("project hub exposes standalone operational modules",()=>{
     assert.ok(project.includes(label),label);
   }
 });
-test("UX-01 landing keeps isolated public shell and explicit product sections",()=>{
-  assert.match(landing,/import "\.\.\/ux01\.css"/);
-  for(const section of ["produto","como-funciona","inteligencia","seguranca"]){
+test("CONSTRUTECH landing keeps isolated public shell and explicit commercial sections",()=>{
+  assert.match(landing,/import "\.\.\/construtech-landing\.css"/);
+  for(const section of ["plataforma","viabilidade","especialistas","seguranca"]){
     assert.match(landing,new RegExp(`id="${section}"`));
   }
   assert.match(landing,/\/login\?return_to=\/app/);
+  assert.match(landing,/lead_capture===true/);
+  assert.match(landing,/Nenhuma confirmação foi emitida/);
 });
 test("canvas retains explicit low-power budget",()=>{
   const canvas=fs.readFileSync("src/components/CognitiveCanvas.tsx","utf8");
